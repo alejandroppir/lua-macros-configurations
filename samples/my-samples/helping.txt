@@ -1,0 +1,21 @@
+--teclas
+--https://www.yoelprogramador.com/teclas-del-teclado-y-valores-de-codigos-de-tecla/
+--origen
+--https://www.youtube.com/watch?v=8PMzR4Plymw
+--example
+--https://gist.github.com/trevren11/a4099bfc650643de6aaff223a046851a
+
+
+Esto carga archivos
+  if     (button == string.byte('C')) then
+         os.execute("C:\\Users\\Alex\\Desktop\\asse.bat")  
+
+Esto habla
+	lmc_say('Cosas que voy a decir')
+		 
+
+shift->+
+ctrl->^
+alt->%
+enter->~
+windows->#
