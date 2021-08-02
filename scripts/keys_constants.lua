@@ -81,6 +81,8 @@ local key = {
     backslash = 220,
     simplequote = 219,
     open_exclamation = 221,
+    del = 8,
+
     --row2
     tab = 9,
     backquote = 186,
