@@ -1,3 +1,7 @@
+-------THIS IS THE CONFIGURATION OF THE SCRIPT---------
+keyboard_id = '1451C1FC'
+scripts_path = 'E:\\lua-macros-configurations\\scripts\\?.lua'
+
 --clear the console
 clear()
 
@@ -10,9 +14,9 @@ disable_keyboard = false --define if the keyboard is disabled
 unknown_to_key = false --define if an unknown key send as normal prints
 disable_macro = false --define if the macros are disabled
 
-lmc_device_set_name("MACROS", "1451C1FC") --bind the keyboard
+lmc_device_set_name("MACROS", keyboard_id) --bind the keyboard
 --route to scripts
-package.path = package.path .. ";E:\\lua-macros-configurations\\scripts\\?.lua" -- path of the scripts
+package.path = package.path .. ";"..scripts_path -- path of the scripts
 --lmc_print_devices()
 print("Configurations setted...")
 
