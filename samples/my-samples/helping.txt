@@ -8,7 +8,7 @@
 
 Esto carga archivos
   if     (button == string.byte('C')) then
-         os.execute("C:\\Users\\Alex\\Desktop\\asse.bat")  
+         os.execute("C:\\pcroute\\script.bat")  
 
 Esto habla
 	lmc_say('Cosas que voy a decir')
@@ -19,3 +19,4 @@ ctrl->^
 alt->%
 enter->~
 windows->#
+{}-> hacen que lo de dentro se interprete como una unica tecla {F8} es la tecla F8 y no una F y un 8
