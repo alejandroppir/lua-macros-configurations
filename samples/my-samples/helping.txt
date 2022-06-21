@@ -5,11 +5,13 @@
 --example
 --https://gist.github.com/trevren11/a4099bfc650643de6aaff223a046851a
 --terclas 2
-https://github.com/me2d13/luamacros/wiki/List-of-Keys
+-- https://github.com/me2d13/luamacros/wiki/List-of-Keys
+--alias
+--https://github.com/me2d13/luamacros/blob/master/src/uSendKeys.pas
 
 Esto carga archivos
   if     (button == string.byte('C')) then
-         os.execute("C:\\Users\\Alex\\Desktop\\asse.bat")
+         os.execute("C:\\pcroute\\script.bat")
 
 Esto habla
 	lmc_say('Cosas que voy a decir')
@@ -20,3 +22,25 @@ ctrl->^
 alt->%
 enter->~
 windows->#
+{}-> hacen que lo de dentro se interprete como una unica tecla {F8} es la tecla F8 y no una F y un 8
+arrows: {UP, DOWN, LEFT, RIGHT}
+
+--key:
+BACKSPACE -> borrar
+ESC -> esc
+TAB -> tab
+CAPSLOCK -> CAPS
+ENTER -> enter
+
+--control superior
+PRTSC -> impr pantalla
+SCROLLLOCK -> bloq desp
+BREAK -> ?
+
+--control panel
+INS -> insert
+HOME-> inicio
+PGUP -> page up
+DEL -> supr
+END -> fin
+PGDN -> page down
