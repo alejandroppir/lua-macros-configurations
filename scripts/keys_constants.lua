@@ -100,7 +100,7 @@ local key = {
     hyphen = 189,
     right_shift = 16,
     --row5
-    left_control = 17,
+    control = 17,
     left_win = 91,
     alt = 18,
     space = 32,

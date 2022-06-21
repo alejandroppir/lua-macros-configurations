@@ -1,5 +1,5 @@
 -------THIS IS THE CONFIGURATION OF THE SCRIPT---------
-keyboard_id = '1451C1FC'
+keyboard_id = '8&203A7E15&0&0000'
 scripts_path = 'E:\\lua-macros-configurations\\scripts\\?.lua'
 
 --clear the console
@@ -11,7 +11,7 @@ lmc.minimizeToTray = false --minimize the app
 sound = false --define if say the action in speakers
 verbose = false --define if write the action in console
 disable_keyboard = false --define if the keyboard is disabled
-unknown_to_key = false --define if an unknown key send as normal prints
+unknown_to_key = true --define if an unknown key send as normal prints
 disable_macro = false --define if the macros are disabled
 
 lmc_device_set_name("MACROS", keyboard_id) --bind the keyboard
@@ -29,7 +29,7 @@ if (lmc.minimizeToTray) then
     lmc_minimize()
 end
 
-print("initialize constants...")
+print("Initialize constants...")
 kc = require "keys_constants"
 
 print("Starting macros...")
@@ -102,7 +102,8 @@ lmc_set_handler(
             hotkey("^+r", "extractor")
         elseif (button == kc.keys().z) then
             --no macro
-            hotkey("function{(}  {)}): void %>(´) {ENTER 2} %>(}){up 2}^{left}+(^{right})", "method")
+            hotkey("function{(}  {)}): void %>(´) {ENTER 2}{up 2}^{left}+(^{right})", "method")
+            -- without visualStudio autoEnding bracket: hotkey("function{(}  {)}): void %>(´) {ENTER 2} %>(){up 2}^{left}+(^{right})", "method")
         else
             if (unknown_to_key) then
                 sendInput(button, "unknown key " .. string.char(button) .. " - " .. button)
@@ -132,4 +133,5 @@ function log(text_to_say)
         print("command: " .. text_to_say)
     end
 end
+
 
