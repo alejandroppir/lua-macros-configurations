@@ -1,0 +1,15 @@
+#variable-definition
+verbose = $V{VERBOSE} --define if write the action in console
+#variable-definition
+
+#macro-config-implementation
+        elseif (button == kc.keys().f2) then
+            verbose = not verbose
+            return
+#macro-config-implementation
+
+#log-implementation
+    if (verbose) then
+        print("command: " .. text_to_log)
+    end
+#log-implementation

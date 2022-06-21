@@ -1,0 +1,8 @@
+#variable-definition
+scripts_path = $V{ADD_SCRIPT}
+#variable-definition
+
+#set-configurations
+--route to scripts
+package.path = package.path .. ";"..scripts_path
+#set-configurations

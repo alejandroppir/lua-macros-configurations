@@ -1,0 +1,70 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="{{ 'CONFIGURATIONS' | translate }}">
+    <section class="column width-70 center">
+      <mat-card>
+        <mat-card-title>{{ 'GENERAL_CONFIGURATIONS' | translate }}</mat-card-title>
+        <mat-card-content>
+          <div #configCheckbox class="grid">
+            <mat-checkbox *ngFor="let checkbox of checkboxArray" [(ngModel)]="checkbox.value" (change)="checkboxValueChange(checkbox)">{{
+              checkbox.title | translate
+            }}</mat-checkbox>
+          </div>
+        </mat-card-content>
+        <mat-divider inset *ngIf="someExtraData"></mat-divider>
+        <mat-card-content>
+          <form novalidate [formGroup]="checkboxExtraDataFG">
+            <mat-form-field class="width-100" appearance="standard" *ngIf="checkboxExtraDataFG.get(checkboxConfigName.ADD_KEYBOARD)">
+              <mat-label>{{ 'ADD_KEYBOARD_ID' | translate }} </mat-label>
+              <input matInput formControlName="ADD_KEYBOARD" />
+              <mat-icon matSuffix (click)="openKeyboardIdHelp()">help_outline</mat-icon>
+              <mat-error *ngIf="checkboxExtraDataFG.get(checkboxConfigName.ADD_KEYBOARD)?.hasError('required')">
+                {{ 'KEYBOARD_ID_REQUIRED' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="width-100" appearance="standard" *ngIf="checkboxExtraDataFG.get(checkboxConfigName.ADD_SCRIPT)">
+              <mat-label>{{ 'ADD_SCRIPT_ROUTE' | translate }}</mat-label>
+              <input matInput formControlName="ADD_SCRIPT" placeholder="E:\\lua-macros-configurations\\scripts\\?.lua" />
+              <mat-error *ngIf="checkboxExtraDataFG.get(checkboxConfigName.ADD_SCRIPT)?.hasError('required')">
+                {{ 'SCRIPT_ROUTE_REQUIRED' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="saveCheckboxDataChanged()">
+            <mat-icon>save</mat-icon>
+            {{ 'SAVE' | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>{{ 'CORE_VARIABLES' | translate }}</mat-card-title>
+        <mat-card-content>
+          <app-table
+            [dataSource]="coreVarsDataSource"
+            [showAddButton]="false"
+            [showDeleteButton]="false"
+            [columnsSchema]="coreTableColsSchema"
+            [selectValuesByColumn]="selectValuesByColumn"
+            (addRowEmitter)="addRow(coreVarsDataSource)"
+            (dataChange)="saveCoreTableDataChanged()"
+          ></app-table>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="customVariablesEnabler">
+        <mat-card-title>{{ 'CUSTOM_VARIABLES' | translate }}</mat-card-title>
+        <mat-card-content>
+          <app-table
+            [dataSource]="customVarsDataSource"
+            [columnsSchema]="customTableColsSchema"
+            [selectValuesByColumn]="selectValuesByColumn"
+            (addRowEmitter)="addRow(customVarsDataSource)"
+            (dataChange)="saveCustomTableDataChanged()"
+          ></app-table>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </mat-tab>
+  <mat-tab label="{{ 'GENERATION' | translate }}"> <app-generation></app-generation></mat-tab>
+</mat-tab-group>

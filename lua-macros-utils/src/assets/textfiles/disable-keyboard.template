@@ -1,0 +1,15 @@
+#variable-definition
+disable_keyboard = $V{DISABLE_KEYBOARD} --define if the keyboard is disabled
+#variable-definition
+
+#macro-config-implementation
+        elseif (button == kc.keys().f12) then
+            disable_keyboard = not disable_keyboard
+            return
+#macro-config-implementation
+
+#disable-keyboard-implementation
+        if (disable_keyboard) then
+            return
+        end
+#disable-keyboard-implementation

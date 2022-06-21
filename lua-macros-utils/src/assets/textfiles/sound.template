@@ -1,0 +1,21 @@
+#variable-definition
+sound = $V{SOUND} --define if say the action in speakers
+#variable-definition
+
+#configure
+if (sound) then
+    lmc_say("Lanzando macros")
+end
+#configure
+
+#macro-config-implementation
+        elseif (button == kc.keys().f1) then
+            sound = not sound
+            return
+#macro-config-implementation
+
+#log-implementation
+    if (sound) then
+        lmc_say(text_to_log)
+    end
+#log-implementation

@@ -1,0 +1,38 @@
+<section class="column column-center width-100 center margin-top-10">
+  <section *ngIf="editorMode === editorState.BASIC" class="column column-center width-50 center margin-top-10">
+    <div class="row width-100 column-center">
+      <button mat-raised-button color="primary" (click)="generateFile()" class="width-25" *ngIf="editorMode === editorState.BASIC">
+        <mat-icon>engineering</mat-icon>
+        {{ 'GENERATE' | translate }}
+      </button>
+      <span class="spacer"></span>
+      <button mat-raised-button color="primary" (click)="saveEditor()" class="width-25">
+        <mat-icon>save</mat-icon>
+        {{ 'SAVE' | translate }}
+      </button>
+    </div>
+
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="luaFiles.savedFile" class="code-editor margin-top-10"></ngx-monaco-editor>
+  </section>
+  <section *ngIf="editorMode === editorState.DIFF" class="column column-center width-50 center margin-top-10">
+    <div class="row width-100 column-center">
+      <button mat-raised-button color="primary" (click)="discardEditorChanges()" class="width-25">
+        <mat-icon>undo</mat-icon>
+        {{ 'DISCARD' | translate }}
+      </button>
+      <span class="spacer"></span>
+      <button mat-raised-button color="primary" (click)="saveDiffEditor()" class="width-25">
+        <mat-icon>save</mat-icon>
+        {{ 'SAVE' | translate }}
+      </button>
+    </div>
+
+    <ngx-monaco-diff-editor
+      [options]="editorOptions"
+      [original]="luaFiles.savedFile"
+      [modified]="luaFiles.newFile"
+      class="code-editor margin-top-10"
+      (init)="diffInit($event)"
+    ></ngx-monaco-diff-editor>
+  </section>
+</section>

@@ -1,0 +1,17 @@
+#variable-definition
+disable_macro = $V{DISABLE_MACRO} --define if the macros are disabled
+#variable-definition
+
+#macro-config-implementation
+        elseif (button == kc.keys().f4) then
+            disable_macro = not disable_macro
+            return
+#macro-config-implementation
+
+#disable-macro-implementation
+        if (disable_macro) then
+            lmc_send_input(button, 0, 0)
+            lmc_send_input(button, 0, 2)
+            return
+        end
+#disable-macro-implementation

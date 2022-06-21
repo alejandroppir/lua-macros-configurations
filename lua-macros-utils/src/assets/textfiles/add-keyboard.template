@@ -1,0 +1,8 @@
+#variable-definition
+keyboard_id = $V{ADD_KEYBOARD}
+#variable-definition
+
+#set-configurations
+lmc_device_set_name("MACROS", keyboard_id)
+
+#set-configurations

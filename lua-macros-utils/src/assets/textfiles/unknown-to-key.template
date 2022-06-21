@@ -1,0 +1,19 @@
+#variable-definition
+unknown_to_key = $V{UNKNOWN_TO_KEY} --define if an unknown key send as normal prints
+#variable-definition
+
+#macro-config-implementation
+        elseif (button == kc.keys().f3) then
+            unknown_to_key = not unknown_to_key
+            return
+#macro-config-implementation
+
+#macro-unknwon-implementation
+        else
+            if (unknown_to_key) then
+                sendInput(button, "unknown key " .. string.char(button) .. " - " .. button)
+            else
+                log("unknown key " .. string.char(button) .. " - " .. button)
+            end
+
+#macro-unknwon-implementation

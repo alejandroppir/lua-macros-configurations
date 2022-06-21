@@ -1,0 +1,63 @@
+clear()
+
+print("Setting configurations...")
+--variable definition
+$B{#variable-definition}
+--set configurations
+$B{#set-configurations}
+print("Configurations setted...")
+
+print("Configuring...")
+$B{#configure}
+
+print("Initialize constants...")
+$B{#load-constants}
+
+print("Starting macros...")
+lmc_set_handler(
+    "MACROS",
+    function(button, direction)
+        if (direction == 0) then --ignore keydown, only work on keyup
+            return
+        end
+
+        --function keys - general configuration
+        if (false) then
+            return
+
+        $B{#macro-config-implementation}
+
+        end
+
+        --disablers
+        $B{#disable-keyboard-implementation}
+        $B{#disable-macro-implementation}
+
+        --keyboard macros
+        if (false) then
+            return
+
+        $B{#macro-implementation}
+
+        --unknownkeys
+        $B{#macro-unknwon-implementation}
+
+        end
+    end
+)
+
+function hotkey(keyaction, text_to_log)
+    log(text_to_log)
+    lmc_send_keys(keyaction)
+end
+
+function sendInput(keyaction, text_to_log)
+    log(text_to_log)
+    lmc_send_input(keyaction, 0, 0)
+    lmc_send_input(keyaction, 0, 2)
+end
+
+
+function log(text_to_log)
+    $B{#log-implementation}
+end

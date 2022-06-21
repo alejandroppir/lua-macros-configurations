@@ -1,0 +1,9 @@
+#variable-definition
+minimizeToTray = $V{MINIMIZE_TO_TRAY} --minimize the app after launch
+#variable-definition
+
+#configure
+if (minimizeToTray) then
+    lmc_minimize()
+end
+#configure

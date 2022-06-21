@@ -1,0 +1,157 @@
+<section class="width-70 center">
+  <mat-card>
+    <mat-card-title>{{ 'MACROS' | translate }}</mat-card-title>
+    <mat-card-content>
+      <section class="layout">
+        <ng-container *ngTemplateOutlet="macroList"></ng-container>
+
+        <div></div>
+        <section class="column">
+          <section class="row row-center space-between">
+            <ng-container *ngTemplateOutlet="header"></ng-container>
+          </section>
+          <section class="margin-bot-10">
+            <ng-container *ngTemplateOutlet="buttons"></ng-container>
+          </section>
+          <section class="margin-bot-10">
+            <ng-container *ngTemplateOutlet="keyCombinations"></ng-container>
+          </section>
+          <section>
+            <mat-form-field class="width-100" appearance="outline">
+              <mat-label>{{ 'MACRO' | translate }}</mat-label>
+              <textarea
+                matInput
+                [ngModel]="actualMacro.value"
+                rows="7"
+                (ngModelChange)="addMacroValue($event)"
+                (focusout)="focusOut($event)"
+              ></textarea>
+            </mat-form-field>
+          </section>
+        </section>
+      </section>
+    </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" (click)="addMacroToList()">
+        <mat-icon>save</mat-icon>
+        {{ 'SAVE' | translate }}
+      </button>
+      <button mat-raised-button color="primary" (click)="deleteMacroToList()">
+        <mat-icon>delete</mat-icon>
+        {{ 'DELETE' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>
+
+<ng-template #macroList>
+  <div class="outline">
+    <mat-list-item *ngFor="let macro of macrosList">
+      <div class="row row-center">
+        <mat-icon mat-list-icon class="edit-icon" (click)="editMacro(macro)">edit</mat-icon>
+        <div mat-line class="ellipsis">{{ macro.key.key + ' | ' + macro.key.code + ' | ' + macro.label }}</div>
+      </div>
+    </mat-list-item>
+  </div>
+</ng-template>
+
+<ng-template #header>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'KEYBOARD_LABEL' | translate }}</mat-label>
+    <input matInput [(ngModel)]="actualMacro.label" />
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="key-size">
+    <mat-label>{{ 'KEYBOARD_KEY' | translate }}</mat-label>
+    <input matInput [(ngModel)]="actualKeyInput" (keyup)="typeMacroKey($event)" />
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="key-size">
+    <mat-label>{{ 'KEYBOARD_KEY_CODE' | translate }}</mat-label>
+    <input matInput [(ngModel)]="actualMacro.key.keyCode" disabled />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'KEYBOARD_KEY_NAME1' | translate }}</mat-label>
+    <input matInput [(ngModel)]="actualMacro.key.key" disabled />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'KEYBOARD_KEY_NAME2' | translate }}</mat-label>
+    <input matInput [(ngModel)]="actualMacro.key.code" disabled />
+  </mat-form-field>
+</ng-template>
+
+<ng-template #keyCombinations>
+  <mat-expansion-panel class="buttons-expansible">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'KEY_COMBINATIONS' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="column">
+      <div class="row row-center warning-color margin-bot-10">
+        <mat-icon>warning_amber</mat-icon>
+        <span class="spacer disclaimer-spacer"></span>
+        {{ 'DISCLAIMER_SPECIAL_BUTTONS' | translate }}
+      </div>
+      <section class="row row-center space-between margin-bot-10">
+        <button mat-raised-button color="primary" (click)="generateKeyCombination()" class="special-buttons">
+          {{ 'GENERATE' | translate }}
+        </button>
+        <div class="row width-80 space-around">
+          <mat-checkbox *ngFor="let checkbox of charModifiers" [(ngModel)]="checkbox.value" (click)="keyCombination = ''">{{
+            checkbox.key | translate
+          }}</mat-checkbox>
+        </div>
+      </section>
+      <div class="row">
+        <mat-form-field class="example-form-field" appearance="outline">
+          <input matInput type="text" [(ngModel)]="keyCombination" [disabled]="true" />
+          <button *ngIf="keyCombination" matSuffix mat-icon-button aria-label="Clear" [cdkCopyToClipboard]="keyCombination">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <button *ngIf="keyCombination" matSuffix mat-icon-button aria-label="Clear" (click)="keyCombination = ''">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</ng-template>
+
+<ng-template #buttons>
+  <mat-expansion-panel class="buttons-expansible">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'SPECIAL_BUTTONS' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <section class="row">
+      <div class="control-keys">
+        <ng-container *ngTemplateOutlet="buttonsTemplate; context: { buttons: specialButtons }"></ng-container>
+      </div>
+      <div class="control-keys">
+        <ng-container *ngTemplateOutlet="buttonsTemplate; context: { buttons: controlButtons }"></ng-container>
+      </div>
+      <div class="control-keys">
+        <ng-container *ngTemplateOutlet="buttonsTemplate; context: { buttons: arrows }"></ng-container>
+      </div>
+    </section>
+  </mat-expansion-panel>
+</ng-template>
+
+<ng-template #buttonsTemplate let-buttons="buttons">
+  <ng-container *ngFor="let button of buttons">
+    <button
+      *ngIf="button.key && button.key != ''; else empty"
+      mat-raised-button
+      color="primary"
+      (click)="addSpecialButtonToMacro(button.luaTranslate)"
+      class="special-buttons"
+    >
+      {{ button.key | translate }}
+    </button>
+  </ng-container>
+</ng-template>
+
+<ng-template #empty>
+  <div></div>
+</ng-template>
